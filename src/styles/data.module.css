@@ -6,16 +6,18 @@
     display: flex;
     flex-wrap: wrap;
     user-select: none;
-    align-items: center;
+    align-items: start;
     color: white;
+    height: 100vh;
+    animation: reveal 0.3s ease;
 }
 .tad-container h1{
     text-align: center;
-    width: 100vw;
+    width: 100%;
 }
 .form-container{
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     padding: 5px;
 }
@@ -27,7 +29,7 @@
     outline: none;
 }
 .form-container{
-    width: 100vw;
+    width: 100%;
 }
 
 .box {
@@ -67,4 +69,6 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+    width: 80vw;
 }

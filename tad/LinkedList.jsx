@@ -94,4 +94,9 @@ export default class LinkedList {
             current = current.next;
         }
     }
+
+
+    getOperations(){
+        return {"invert":()=>this.invert(),"print": this.print }
+    }
 }

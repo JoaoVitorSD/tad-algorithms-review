@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import useTAD from "@hook/useTAD";
 
 export default function LinkedListTemplate() {
-    const { render, add } = useTAD(LinkedList);
+    const { render,reload, add, operations } = useTAD(LinkedList);
 
 
     const [numberInput, setNumerInput] = useState(0);
@@ -14,6 +14,7 @@ export default function LinkedListTemplate() {
             <form onSubmit={(e)=>{e.preventDefault();add(numberInput)}} className={DataStyle["form-container"]}>
                 <input type="number" value={numberInput} onChange={(e) => setNumerInput(e.target.value)} />
                 <button>+</button>
+                <button type="button" onClick={()=> {operations.invert();reload()}}>rotate</button>
             </form>
 
             <div className={DataStyle["tad-elements-container"]}>

@@ -3,24 +3,32 @@ import { useState } from "react";
 
 export default function useTAD(tadClass) {
 
-    const [tad, setTad] = useState();
+    const [tad, setTad] = useState(null);
     const [render, setRender] = useState([]);
+    const [operations, setOperations] = useState({});
 
     useEffect(() => {
         setTad(new tadClass());
 
-
         ()=> setTad([]);
     }, [])
 
-    const add = (value) => {
-        console.log(tad)
+    useEffect(() => {
+        if(tad){
+            setOperations(tad.getOperations());
+        }
+    }, [tad])
+
+    function add(value){
         tad.add(value);
         setRender(tad.render());
     };
 
 
+    function reload(){
+        console.log("Reloading");
+        setRender(tad.render());
+    }
 
-
-    return { render, add }
+    return { render,reload,add, operations }
 }
