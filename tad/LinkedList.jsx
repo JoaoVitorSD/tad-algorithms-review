@@ -86,7 +86,6 @@ export default class LinkedList {
     }
 
     print() {
-
         let current = this.head;
 
         while (current != null) {
@@ -94,9 +93,21 @@ export default class LinkedList {
             current = current.next;
         }
     }
-
+    clear(){
+        let current = this.head;
+        while (current != null) {
+            console.log(current.value);
+            let next = current.next;
+            current.next = null;
+            current.prev = null;
+            current = next;
+            this.size--;
+        }
+        this.head = null;
+        this.tail = null;
+    }
 
     getOperations(){
-        return {"invert":()=>this.invert(),"print": this.print }
+        return { "invert": () => this.invert(), "clear": () => this.clear(), "print": this.print }
     }
 }

@@ -11,10 +11,11 @@ export default function LinkedListTemplate() {
     return (
         <div className={DataStyle["tad-container"]}>
             <h1>Linked List</h1>
-            <form onSubmit={(e)=>{e.preventDefault();add(numberInput)}} className={DataStyle["form-container"]}>
+            <form onSubmit={(e)=>{e.preventDefault();add(numberInput); setNumerInput(numberInput+1)}} className={DataStyle["form-container"]}>
                 <input type="number" value={numberInput} onChange={(e) => setNumerInput(e.target.value)} />
                 <button>+</button>
                 <button type="button" onClick={()=> {operations.invert();reload()}}>rotate</button>
+                <button type="button" onClick={()=> {operations.clear();reload()}}>clear</button>
             </form>
 
             <div className={DataStyle["tad-elements-container"]}>
