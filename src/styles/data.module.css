@@ -4,16 +4,16 @@
 
 .tad-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     user-select: none;
-    align-items: start;
+    flex-direction: column;
     color: white;
     height: 100vh;
     animation: reveal 0.3s ease;
 }
 .tad-container h1{
     text-align: center;
-    width: 100%;
+    margin: 10px 0;
 }
 .form-container{
     display: flex;
@@ -71,4 +71,5 @@
     align-items: center;
     justify-content: center;
     width: 80vw;
+    margin-top: 2%;
 }
