@@ -1,8 +1,11 @@
+'use client';
+
 import Box from "../components/box";
 import Node from "./Node";
 
 export default class LinkedList {
     constructor() {
+        console.log("constructor called")
         this.head = null;
         this.tail = null;
         this.size = 0;
@@ -26,10 +29,8 @@ export default class LinkedList {
         let arr = new Array(this.size);
 
         for (let i = 0; i < this.size; i++) {
-            arr[i] = <>
-                <Box key={i} value={current.value} />
-                {i < this.size - 1 ? "->" : null}
-            </>
+            let isLastElement = i===this.size-1;
+            arr[i] = <Box key={i} value={current.value} last={isLastElement} arrow={isLastElement ?  false: "right"} />
             current = current.next;
         }
         return arr;
