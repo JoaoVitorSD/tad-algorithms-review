@@ -2,9 +2,9 @@ import BinaryTree from "@tad/BinaryTree";
 import DataStyle from "@styles/data.module.css";
 import { useEffect, useState } from "react";
 import useTAD from "@hook/useTAD";
-
+import HeapController from "@components/heap"
 export default function BinaryTreeTemplate() {
-    const { render, reload, add, operations } = useTAD(BinaryTree);
+    const { render, reload, add,heap, operations } = useTAD(BinaryTree);
 
 
     const [numberInput, setNumerInput] = useState(0);
@@ -13,7 +13,6 @@ export default function BinaryTreeTemplate() {
         const number = parseInt(numberInput);
         const value = number < 0 ? number - 1 : number + 1;
         setNumerInput(value);
-
         add(number);
     }
     return (
@@ -23,11 +22,16 @@ export default function BinaryTreeTemplate() {
                 <input type="number" value={numberInput} onChange={(e) => setNumerInput(e.target.value)} />
                 <button>Add</button>
 
-                {operations&&operations.length&&operations.map((operation,index) => {
-                    return <button key={index} type="button" onClick={() => { operation.action(); reload() }}>{operation.name}</button>
+                {operations && operations.length && operations.map((operation, index) => {
+                    return <button key={index} type="button" onClick={() => {
+                        operation.requiresInput ? operation.action(numberInput) : operation.action();
+                        reload();
+                    }
+                    }>{operation.name}</button>
 
                 })}
             </form>
+            <HeapController heap={heap ? heap(): null} reload={reload}/>
 
             <div className={DataStyle["tad-elements-container"]}>
                 <div className={DataStyle["tree-elements-container"]}>

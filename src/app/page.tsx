@@ -4,6 +4,9 @@ import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import LinkedListTemplate from "@components/linked_list_template";
 import BynaryTreeTemplate from "@components/bynaray_tree_template";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Home() {
   const [opened, setOpened] = useState(false);
 
@@ -13,7 +16,7 @@ export default function Home() {
   ];
 
   const [body, setBody] = useState<any>(null);
-  
+
   const randomPos = (arr: any[]) => {
     return arr[parseInt((arr.length * Math.random()).toFixed(2))];
   };
@@ -52,6 +55,7 @@ export default function Home() {
       </section>
 
       {body}
+      <ToastContainer />
     </main>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import Box from "../components/box";
+import Box from "@components/box";
 import Node from "./Node";
 
 export default class LinkedList {

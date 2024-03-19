@@ -19,7 +19,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@tad/*": ["./tad/*"],
+      "@tad/*": ["./components/tad/*"],
       "@styles/*": ["./src/styles/*"],
       "@components/*": ["./components/*"],
       "@hook/*": ["./hook/*"],

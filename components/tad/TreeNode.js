@@ -4,6 +4,8 @@ export default class TreeNode {
         this.value = value;
         this.left = null;
         this.right = null;
+        this.prev = null;
+        this.looking = false;
     }
 
 

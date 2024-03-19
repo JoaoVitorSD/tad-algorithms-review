@@ -17,7 +17,6 @@ export default function LinkedListTemplate() {
                 <button type="button" onClick={()=> {operations.invert();reload()}}>rotate</button>
                 <button type="button" onClick={()=> {operations.clear();reload()}}>clear</button>
             </form>
-
             <div className={DataStyle["tad-elements-container"]}>
             {render}
             </div>

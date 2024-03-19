@@ -10,7 +10,7 @@ export default function useTAD(tadClass) {
     useEffect(() => {
         setTad(new tadClass());
 
-        ()=> setTad([]);
+        ()=> setTad(null);
     }, [])
 
     useEffect(() => {
@@ -21,17 +21,20 @@ export default function useTAD(tadClass) {
 
     function add(value){
         tad.add(value);
-        console.log("That not contains render method");
         if(tad.render){
             setRender(tad.render());
+        }else{
+            console.log("That not contains render method");
         }
     };
 
-
+    function heap(){
+        return tad ? tad.getHeap() : null;
+    }
     function reload(){
         console.log("Reloading");
         setRender(tad.render());
     }
 
-    return { render,reload,add, operations }
+    return { render,reload,add, heap,operations }
 }
