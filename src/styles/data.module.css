@@ -1,4 +1,4 @@
-.arrow{
+.arrow {
     white-space: nowrap;
 }
 
@@ -11,65 +11,103 @@
     height: 100vh;
     animation: reveal 0.3s ease;
 }
-.tad-container h1{
+
+.tad-container h1 {
     text-align: center;
     margin: 10px 0;
 }
-.form-container{
+
+.form-container {
     display: flex;
     align-items: start;
     justify-content: center;
     padding: 5px;
+    gap: 5px;
 }
-.form-container input{
+
+.form-container input {
     outline: none;
 }
-.form-container button{
+
+.form-container button {
     height: 100%;
     outline: none;
 }
-.form-container{
+
+.form-container {
     width: 100%;
 }
 
 .box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid white;
-  padding: 10px;
-  color: white;
-  cursor: pointer;
-  margin: 0 10px;
-  transition: transform 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
 }
 
-.box--last{
+.box--last {
     animation: reveal 0.2s ease;
 }
 
 
 .box:hover {
-  transform: rotate(10deg)
+    transform: rotate(10deg)
 }
 
 @keyframes reveal {
 
-    0%{
+    0% {
         opacity: 0;
     }
-    100%{
+
+    100% {
         opacity: 1;
     }
-    
+
 }
 
 
-.tad-elements-container{
+.tad-elements-container {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     width: 80vw;
     margin-top: 2%;
+    position: relative;
+}
+
+.leaf {
+    width: 20px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.leaf--last {
+    animation: reveal .3s ease;
+}
+
+.tree-elements-container {
+    position: relative;
+
+}
+
+@keyframes reveal {
+    0% {
+        opacity: 0;
+        margin-top: 10px
+    }
+
+    100% {
+        opacity: 1;
+        margin-top: 0;
+    }
 }

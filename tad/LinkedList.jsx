@@ -5,7 +5,6 @@ import Node from "./Node";
 
 export default class LinkedList {
     constructor() {
-        console.log("constructor called")
         this.head = null;
         this.tail = null;
         this.size = 0;
@@ -101,8 +100,8 @@ export default class LinkedList {
             current.next = null;
             current.prev = null;
             current = next;
-            this.size--;
         }
+        this.size = 0;
         this.head = null;
         this.tail = null;
     }

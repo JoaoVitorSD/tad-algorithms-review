@@ -21,7 +21,10 @@ export default function useTAD(tadClass) {
 
     function add(value){
         tad.add(value);
-        setRender(tad.render());
+        console.log("That not contains render method");
+        if(tad.render){
+            setRender(tad.render());
+        }
     };
 
 
