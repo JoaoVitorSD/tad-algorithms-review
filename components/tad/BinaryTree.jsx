@@ -1,19 +1,19 @@
 import Leaf from "@components/Leaf";
 import Node from "./TreeNode";
-import DataStyle from "@styles/data.module.css";
 import AbsoluteArrow from "@components/arrow_absolute"
 import HeapExecution from "./Heap";
+import QueueExecution from "./Queue";
 
-import { showSucessToast, showErrorToast } from "@components/toast/showToast"
 export default class BinaryTree {
 
-    constructor() {
+    constructor(reload) {
         this.root = null;
         this.CELL_SPACING_VERTICALLY = 40;
         this.CELL_SPACING_HORIZONTALLY = 50;
         this.last = null;
         this.currentLooking = null;
         this.heap = new HeapExecution({});
+        this.reload = reload;
     }
 
     add(value) {
@@ -84,7 +84,6 @@ export default class BinaryTree {
             this.heap.add({ action: () => this.findRec(current.right, value), condition: current.right });
         }
     }
-
     forwardLooking(currentLoking) {
         if (this.currentLooking != null) {
             this.currentLooking.looking = false;
@@ -113,35 +112,74 @@ export default class BinaryTree {
     }
 
     preOrder() {
-        this.heap = new HeapExecution({ sucessMessageIfBecameEmpty: "Pre Order finished", clearMarkedElements: () => this.clearCurrentLooking() });
+        this.heap = this.getForwardingHeap("Pre Order");
         const preOrderRec = (current) => {
             if (current == null) {
                 return;
             }
-            this.forwardLooking(current);
-            console.log(current.value);
             this.heap.add({ action: () => preOrderRec(current.right), condition: current.right });
             this.heap.add({ action: () => preOrderRec(current.left), condition: current.left });
+            this.heap.add({ action: () => this.forwardLooking(current)});
         }
         preOrderRec(this.root);
     }
 
-    inOrder(current) {
-        if (current == null) {
-            return;
+    inOrder() {
+        this.heap = this.getForwardingHeap("In Order");
+        const inOrderRec = (current) => {
+            if (current == null) {
+                return;
+            }
+            this.heap.add({ action: () => inOrderRec(current.right), condition: current.right });
+            this.heap.add({ action: () => this.forwardLooking(current)});
+            this.heap.add({ action: () => inOrderRec(current.left), condition: current.left });
         }
-        this.inOrder(current.left);
-        console.log(current.value);
-        this.inOrder(current.right);
+        inOrderRec(this.root);
     }
-    posOrder(current) {
-        if (current == null) {
-            return;
+    posOrder() {
+        this.heap = this.getForwardingHeap("Pos Order");
+        const posOrderRec = (current) => {
+            if (current == null) {
+                return;
+            }
+            this.heap.add({ action: () => this.forwardLooking(current)});
+            this.heap.add({ action: () => posOrderRec(current.right), condition: current.right });
+            this.heap.add({ action: () => posOrderRec(current.left), condition: current.left });
         }
-        this.forwardLooking(current);
-        this.heap.add({ action: () => this.posOrder(current.right), condition: current.right });
-        this.heap.add({ action: () => this.posOrder(current.left), condition: current.left });
-        this.heap.add({ action: () => console.log(current.value) });
+        posOrderRec(this.root);
+    }
+    byLevel(){
+        this.heap = this.getForwardingQueue("By Level");
+        const byLevelRec = (current) => {
+            if (current == null) {
+                return;
+            }
+            this.forwardLooking(current);
+            this.heap.add({ action: () => {byLevelRec(current.left)}, condition: current.left });
+            this.heap.add({ action: () => {byLevelRec(current.right)}, condition: current.right });
+        }
+        byLevelRec(this.root);
+
+    }
+    getForwardingHeap(type) {
+        return new HeapExecution({ sucessMessageIfBecameEmpty: type + " finished", clearMarkedElements: () => this.clearCurrentLooking(), reload:()=> this.reload() });
+    }
+    getForwardingQueue(type) {
+        return new QueueExecution({ sucessMessageIfBecameEmpty: type + " finished", clearMarkedElements: () => this.clearCurrentLooking(), reload:()=> this.reload() });
+    }
+
+    invert(){
+        const invertRec = (current)=>{
+            if(current==null){
+                return;
+            }
+            invertRec(current.left);
+            invertRec(current.right);
+            let auxLeft = current.left;
+            current.left = current.right;
+            current.right = auxLeft;
+        }
+        invertRec(this.root);
     }
     clear() {
         this.clearRec(this.root);
@@ -159,8 +197,10 @@ export default class BinaryTree {
         current.right = null;
     }
     clearCurrentLooking() {
-        this.currentLooking.looking = false;
-        this.currentLooking = null;
+        if (this.currentLooking) {
+            this.currentLooking.looking = false;
+            this.currentLooking = null;
+        }
     }
     getHeap() {
         return this.heap;
@@ -169,9 +209,11 @@ export default class BinaryTree {
         return [{ name: "print", action: () => this.print() }, { name: "render", action: () => this.render() }, { name: "clear", action: () => this.clear() }
             , { name: "find", action: (value) => this.find(value), requiresInput: true }
             , { name: "TAD", action: () => console.log(this) },
-            , { name: "preOrder", action: () => this.preOrder() },
-            , { name: "inOrder", action: () => this.inOrder(this.root) },
-            , { name: "posOrder", action: () => this.posOrder(this.root) },
+            , { name: "pre Order", action: () => this.preOrder() },
+            , { name: "in Order", action: () => this.inOrder() },
+            , { name: "pos Order", action: () => this.posOrder() },
+            , { name: "by level", action: () => this.byLevel() },
+            , { name: "invert", action: () => this.invert() },
         ];
     }
 }

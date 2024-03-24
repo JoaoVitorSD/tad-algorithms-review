@@ -9,5 +9,7 @@ export default function HeapController({heap, reload}){
         >Run</button>
         <button className={`${DataStyle["heap-button"]} ${heap && heap.isEmpty() ? DataStyle["heap-button--disable"] : ""}`}
         type="button" onClick={()=>heap.clear()}>Clear</button>
+        <button className={`${DataStyle["heap-button"]} ${heap && heap.isEmpty() ? DataStyle["heap-button--disable"] : ""}`}
+        type="button" onClick={()=>console.log(heap)}>Print</button>
     </div>
 }

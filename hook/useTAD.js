@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function useTAD(tadClass) {
+export default function useTAD(tadClass, reloadView) {
 
     const [tad, setTad] = useState(null);
     const [render, setRender] = useState([]);
     const [operations, setOperations] = useState({});
-
     useEffect(() => {
-        setTad(new tadClass());
+        setTad(new tadClass(reloadView));
 
         ()=> setTad(null);
     }, [])
@@ -34,6 +33,8 @@ export default function useTAD(tadClass) {
     function reload(){
         setRender(tad.render());
     }
+
+  
 
     return { render,reload,add, heap,operations }
 }
