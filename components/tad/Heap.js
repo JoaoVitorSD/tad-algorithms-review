@@ -1,13 +1,23 @@
+import { showErrorToast, showSucessToast, showWarningToast } from "@components/toast/showToast";
 import Node from "./HeapNode"
 export default class HeapExecution {
-    constructor() {
+    constructor({ sucessMessageIfBecameEmpty,warningMessageIfBecameEmpty, clearMarkedElements}) {
         this.head = null;
         this.tail = null;
         this.size = 0;
+        this.sucessMessageIfBecameEmpty = sucessMessageIfBecameEmpty;
+        this.warningMessageIfBecameEmpty = warningMessageIfBecameEmpty;
+        this.clearMarkedElements = clearMarkedElements;
+        this.executedWithSucess = false;
     }
-
-    add(action) {
-        console.log("ADDING ", action);
+    /**
+     * @param action function that will be executed
+     * @param condition conditional to add the action to heap
+     */
+    add({action, condition}) {
+        if (condition!==undefined&&!condition) {
+            return;
+        }
         this.size++;
         if (this.head === null) {
             this.head = new Node(action, null);
@@ -30,6 +40,14 @@ export default class HeapExecution {
             this.tail = null;
             this.head = null;
             tail.run();
+            if(this.size==0){
+                if(this.executedWithSucess){
+                    showSucessToast(this.sucessMessageIfBecameEmpty);
+                }else{
+                    showWarningToast(this.warningMessageIfBecameEmpty);
+                }
+                this.clear();
+            }
             return
         }
         let auxTail = this.tail;
@@ -39,6 +57,9 @@ export default class HeapExecution {
     }
 
     clear() {
+        if(this.clearMarkedElements){
+            this.clearMarkedElements();
+        }
         if (this.head != null) {
             this.size = 0
             let current = this.head;
@@ -48,8 +69,13 @@ export default class HeapExecution {
                 current = current.next;
                 prev.next = null;
             }
+
+            this.tail = null;
+            this.size = 0;
         }
     }
-
+    isEmpty(){
+        return this.size===0;
+    }
 
 }

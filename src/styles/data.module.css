@@ -137,9 +137,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: end;
+    width: 10vw;
+    gap: 5px;
+    margin-left: 10px;
     font-size: 25px;
 }
 
-.heap button {
+.heap-button{
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
     font-size: 20px;
+    border: none;
+    outline: none;
+}
+
+.heap-button--disable{
+    cursor:not-allowed;
+    background: rgb(186, 186, 186);
 }

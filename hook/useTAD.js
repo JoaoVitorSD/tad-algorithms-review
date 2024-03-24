@@ -32,7 +32,6 @@ export default function useTAD(tadClass) {
         return tad ? tad.getHeap() : null;
     }
     function reload(){
-        console.log("Reloading");
         setRender(tad.render());
     }
 

@@ -15,3 +15,11 @@ export function showErrorToast(message) {
         closeOnClick: true,
     })
 }
+
+export function showWarningToast(message) {
+    toast.warning(message, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+    })
+}
