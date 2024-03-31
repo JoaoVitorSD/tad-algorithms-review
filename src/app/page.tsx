@@ -41,7 +41,9 @@ export default function Home() {
             </ul>
           </nav>
         ) : null}
-        <div className={styles.menu} onClick={() => setOpened(!opened)}>
+        <div className={`${styles.menu} ${
+              opened ? styles["menu--revealed"] : false
+            }`} onClick={() => setOpened(!opened)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`${styles.icon} ${

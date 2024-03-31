@@ -61,7 +61,7 @@ export default class QueueExecution {
 
     clear() {
         if(this.clearMarkedElements){
-            this.clearMarkedElements();
+            setTimeout(this.clearMarkedElements, 500);
         }
         if (this.head != null) {
             this.size = 0

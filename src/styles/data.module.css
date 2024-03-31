@@ -26,7 +26,9 @@
 }
 
 .form-container input {
+    height: 100%;
     outline: none;
+    box-sizing: border-box;
 }
 
 .form-container button {
@@ -35,9 +37,11 @@
     text-transform: uppercase;
     font-weight: bold;
     cursor: pointer;
-    min-width: 20px;
+    min-width: 30px;
+    font-size: 15px;
     transition: box-shadow .3s ease;
     outline: none;
+    box-sizing: border-box;
 }
 
 .form-container button:hover {
