@@ -15,17 +15,17 @@ export default class HeapExecution {
      * @param action function that will be executed
      * @param condition conditional to add the action to heap
      */
-    add({action, condition}) {
+    add({ action, condition, autoForward }) {
         if (condition!==undefined&&!condition) {
             return;
         }
         this.size++;
         if (this.head === null) {
-            this.head = new Node(action, null);
+            this.head = new Node(action, null, autoForward);
             this.tail = this.head;
             return true;
         }
-        const newNode = new Node(action, this.tail);
+        const newNode = new Node(action, this.tail, autoForward);
         this.tail.pointTo(newNode)
         this.tail = newNode;
     }
@@ -55,6 +55,9 @@ export default class HeapExecution {
         this.tail = auxTail.prev;
         this.tail.next = null;
         auxTail.run();
+        if(this.tail.autoForward){
+            this.run()
+        }
     }
 
     clear() {

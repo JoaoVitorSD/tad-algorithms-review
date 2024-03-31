@@ -1,7 +1,8 @@
 export default class Node{
-    constructor(action, prev){
+    constructor(action, prev, autoForward){
         this.action = action;
         this.prev = prev;
+        this.autoForward = autoForward;
         this.next = null;
     }
 

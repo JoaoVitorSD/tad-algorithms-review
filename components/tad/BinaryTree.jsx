@@ -3,6 +3,7 @@ import Node from "./TreeNode";
 import AbsoluteArrow from "@components/arrow_absolute"
 import HeapExecution from "./Heap";
 import QueueExecution from "./Queue";
+import { useState } from "react";
 
 export default class BinaryTree {
 
@@ -12,8 +13,15 @@ export default class BinaryTree {
         this.CELL_SPACING_HORIZONTALLY = 50;
         this.last = null;
         this.currentLooking = null;
-        this.heap = new HeapExecution({});
         this.reload = reload;
+    }
+
+
+    setSpacingHorizontally(size){
+        this.CELL_SPACING_HORIZONTALLY = size;
+    }
+    setSpacingVertically(size) {
+        this.CELL_SPACING_VERTICALLY = size;
     }
 
     add(value) {
@@ -24,6 +32,8 @@ export default class BinaryTree {
         }
 
         this.addRec(null, this.root, value)
+
+        
     }
     addRec(prev, current, value) {
         if (current == null) {
@@ -117,8 +127,8 @@ export default class BinaryTree {
             if (current == null) {
                 return;
             }
-            this.heap.add({ action: () => preOrderRec(current.right), condition: current.right });
-            this.heap.add({ action: () => preOrderRec(current.left), condition: current.left });
+            this.heap.add({ action: () => preOrderRec(current.right), condition: current.right, autoForward: true });
+            this.heap.add({ action: () => preOrderRec(current.left), condition: current.left, autoForward: true });
             this.heap.add({ action: () => this.forwardLooking(current)});
         }
         preOrderRec(this.root);
@@ -130,9 +140,9 @@ export default class BinaryTree {
             if (current == null) {
                 return;
             }
-            this.heap.add({ action: () => inOrderRec(current.right), condition: current.right });
+            this.heap.add({ action: () => inOrderRec(current.right), condition: current.right, autoForward: true });
             this.heap.add({ action: () => this.forwardLooking(current)});
-            this.heap.add({ action: () => inOrderRec(current.left), condition: current.left });
+            this.heap.add({ action: () => inOrderRec(current.left), condition: current.left, autoForward: true });
         }
         inOrderRec(this.root);
     }
@@ -143,8 +153,8 @@ export default class BinaryTree {
                 return;
             }
             this.heap.add({ action: () => this.forwardLooking(current)});
-            this.heap.add({ action: () => posOrderRec(current.right), condition: current.right });
-            this.heap.add({ action: () => posOrderRec(current.left), condition: current.left });
+            this.heap.add({ action: () => posOrderRec(current.right), condition: current.right, autoForward: true });
+            this.heap.add({ action: () => posOrderRec(current.left), condition: current.left, autoForward: true  });
         }
         posOrderRec(this.root);
     }
@@ -155,8 +165,8 @@ export default class BinaryTree {
                 return;
             }
             this.forwardLooking(current);
-            this.heap.add({ action: () => {byLevelRec(current.left)}, condition: current.left });
-            this.heap.add({ action: () => {byLevelRec(current.right)}, condition: current.right });
+            this.heap.add({ action: () => { byLevelRec(current.left) }, condition: current.left, autoForward: true });
+            this.heap.add({ action: () => { byLevelRec(current.right) }, condition: current.right, autoForward: true });
         }
         byLevelRec(this.root);
 
